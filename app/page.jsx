@@ -1,10 +1,11 @@
 import React from 'react';
+import NavBar from './components/NavBar';
 
 const Home = () => {
   return (
-    <div>
+    <>
       <h1>Welcome to Car Doctor</h1>
-    </div>
+    </>
   );
 };
 
