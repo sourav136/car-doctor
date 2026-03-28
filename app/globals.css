@@ -17,6 +17,7 @@
 }
 
 @theme{
+  --font-sans:var(--font-inter), sans-serif;
   --color-primary: #FF3811;
   --color-primary-text: #FF3811;  /* Same as primary, used for highlighted text */
   --color-secondary-text: #FFFFFF; /* White, used on dark backgrounds */

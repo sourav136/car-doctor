@@ -1,14 +1,9 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
+import { Inter } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -22,15 +17,19 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-theme="cardoctor"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col font-sans">
         <header>
           <div className="max-w-7xl mx-auto lg:px-8 md:px-4 px-2">
             <NavBar />
           </div>
         </header>
-        <main>{children}</main>
+        <main>
+          <div className="max-w-7xl mx-auto lg:px-8 md:px-4 px-2">
+            {children}
+          </div>
+        </main>
         <footer></footer>
       </body>
     </html>
