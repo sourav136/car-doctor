@@ -49,7 +49,7 @@ const NavBar = () => {
             ))}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <a href="#">
           <Image src="/assets/logo.svg" alt="logo" height={86} width={100} />
         </a>
       </div>

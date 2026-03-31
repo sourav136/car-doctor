@@ -25,4 +25,6 @@
   --color-light-dark: #444444;    /* Lighter dark: for headings and secondary text */
   --color-gray: #737373;          /* Gray: for normal text */
   --color-white: #FFFFFF; 
+  --color-border: #E8E8E8;
+  --color-bg: #F3F3F3;
 }
