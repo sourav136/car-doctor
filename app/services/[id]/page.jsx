@@ -64,7 +64,7 @@ export default async function ServiceDetails({params}) {
                     <img className='w-full  order-4 md:order-3' src="/assets/images/Ad.png" alt="Advertisement" />
                     <div className='flex flex-col gap-7.5  order-1 md:order-4'>
                         <h5 className='text-main-dark font-bold text-4xl'>Price: ${serviceDetails.price}</h5>
-                        <Link className='w-full py-4 text-center text-white bg-primary text-lg font-semibold' href={"/"}>Proceed Checkout</Link>
+                        <Link className='w-full py-4 text-center text-white bg-primary text-lg font-semibold' href={`/checkout/${serviceDetails._id}`}>Proceed Checkout</Link>
                     </div>
                 </div>
             </div>
