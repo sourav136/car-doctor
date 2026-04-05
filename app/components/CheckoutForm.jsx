@@ -1,11 +1,50 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ serviceDetails }) => {
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert]= useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = {
+      serviceId: serviceDetails._id,
+      serviceName: serviceDetails.title,
+      price: serviceDetails.price,
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
+      phone: e.target.phone.value,
+      email: e.target.email.value,
+      message: e.target.message.value,
+    };
+
+    try{
+          await fetch("/api/bookings", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+          setAlert({
+        type: "success",
+        message: "Your booking has been placed successfully!"
+      });
+    } catch(error) {
+      setAlert({
+        type: "error",
+        message: "There was an error placing your booking. Please try again."
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <form 
-    className="mt-15 md:mt-25 lg:mt-32.5 bg-bg rounded-lg p-10 md:p-15 lg:p-24"
-
-    aria-label="Checkout Form">
+    <form
+      className="mt-15 md:mt-25 lg:mt-32.5 bg-bg rounded-lg p-10 md:p-15 lg:p-24"
+      onSubmit={handleSubmit}
+      aria-label="Checkout Form"
+    >
+      <h1>{serviceDetails.title}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="relative">
           <input
@@ -70,7 +109,7 @@ const CheckoutForm = () => {
                peer-focus:text-sm
                "
           >
-            Your Phone 
+            Your Phone
           </label>
         </div>
         <div className="relative">
@@ -118,7 +157,19 @@ const CheckoutForm = () => {
           </label>
         </div>
       </div>
-      <button className="w-full py-4 bg-primary text-white text-center text-xl font-semibold hover:ring-2 hover:ring-primary hover:text-primary hover:bg-transparent transition duration-300 rounded-lg mt-6 cursor-pointer" type="submit">Confirm Order</button>
+      <button
+        className="w-full py-4 bg-primary text-white text-center text-xl font-semibold hover:ring-2 hover:ring-primary hover:text-primary hover:bg-transparent transition duration-300 rounded-lg mt-6 cursor-pointer"
+        type="submit"
+      >
+        {loading ? (
+          <span className="loading loading-spinner loading-md"></span>
+        ) : (
+          "Confirm Order"
+        )}
+      </button>
+      <div className="alert alert-success">
+        <span>Message sent successfully.</span>
+      </div>
     </form>
   );
 };
