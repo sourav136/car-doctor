@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const CheckoutForm = ({ serviceDetails }) => {
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert]= useState(null);
+  const [alert, setAlert] = useState(null);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,6 +13,7 @@ const CheckoutForm = ({ serviceDetails }) => {
     const formData = {
       serviceId: serviceDetails._id,
       serviceName: serviceDetails.title,
+      image: serviceDetails.img,
       price: serviceDetails.price,
       firstName: e.target.firstName.value,
       lastName: e.target.lastName.value,
@@ -19,19 +22,20 @@ const CheckoutForm = ({ serviceDetails }) => {
       message: e.target.message.value,
     };
 
-    try{
-          await fetch("/api/bookings", {
-      method: "POST",
-      body: JSON.stringify(formData),
-    });
-          setAlert({
-        type: "success",
-        message: "Your booking has been placed successfully!"
+    try {
+      await fetch("/api/bookings", {
+        method: "POST",
+        body: JSON.stringify(formData),
       });
-    } catch(error) {
+      setAlert({
+        type: "success",
+        message: "Your booking has been placed successfully!",
+      });
+      router.push("/cart");
+    } catch (error) {
       setAlert({
         type: "error",
-        message: "There was an error placing your booking. Please try again."
+        message: "There was an error placing your booking. Please try again.",
       });
     } finally {
       setLoading(false);

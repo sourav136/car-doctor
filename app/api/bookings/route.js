@@ -6,9 +6,13 @@ export async function POST(req){
     const newBooking = {
         date: Date.now().toString(),
         ...data,
-        status: "pending"
+        status: "Pending"
     };
 
     bookings.push(newBooking);
     return Response.json({succes: true});
+}
+
+export async function GET(){
+    return Response.json(bookings);
 }
