@@ -18,7 +18,12 @@ export async function GET(){
 }
 
 export async function DELETE(req){
-    const {id} = await req.json();
+    const body = await req.json().catch(() => null);
+    if (!body || !body.id){
+        bookings = [];
+        return Response.json({success: true});
+    }
+    const {id} = await body;
 
     bookings= bookings.filter(b => b.id !== id);
     return Response.json({success: true});
