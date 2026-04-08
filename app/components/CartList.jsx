@@ -1,5 +1,5 @@
 import React from "react";
-import { RxCross2 } from "react-icons/rx";
+import Delete from "./Delete";
 
 const getCartList = async () => {
   const response = await fetch("http://localhost:3000/api/bookings", {
@@ -24,11 +24,9 @@ const CartList = async () => {
       <ul>
         {cartList ? (
           cartList.map((item) => (
-            <li key={item.serviceId} className="flex">
+            <li key={item.serviceId} className="flex mb-7">
               <div className="flex items-center">
-                <div className="p-1 md:p-2.5 bg-light-dark rounded-full cursor-pointer">
-                  <RxCross2 className="text-white text-sm md:text-xl" />
-                </div>
+                <Delete id={item.id} />
                 <div className="h-20 w-20 md:h-30 md:w-30 lg:h-37.5 lg:w-37.5 mx-2 md:mx-7.5 ">
                   <img
                     src={item.image}
@@ -43,7 +41,7 @@ const CartList = async () => {
                     {item.serviceName}
                   </h2>
                   <p className="text-gray text-[10px] md:text-base">
-                    {item.date}
+                    {item.id}
                   </p>
                 </div>
                 <h3 className="text-light-dark font-semibold text-sm md:text-xl">
