@@ -3,7 +3,7 @@ import React from 'react';
 const Banner = ({title, routeTitle, img}) => {
     return (
         <section className='relative w-full h-75 bg-cover bg-center flex justify-center md:justify-start items-center rounded-lg md:px-25'
-         style={{ backgroundImage: "url('/assets/images/banner/4.jpg')" }}>
+         style={{ backgroundImage: `url('${img}')` }}>
             <div className='absolute inset-0 bg-linear-to-r from-main-dark to-transparent rounded-lg'></div>
             <h1 className='text-4xl md:text-5xl text-white font-bold z-10'>{title}</h1>
             <div className='bg-primary absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center items-center z-10'

@@ -2,13 +2,15 @@ import React from "react";
 import HeroCarousel from "./components/HeroCarousel";
 import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
+import Team from "./components/Team";
 
 const Home = () => {
   return (
     <>
       <HeroCarousel/>
-      <AboutUs/>
+      <AboutUs title={"Get More Info"} href={"/about"}/>
       <Services/>
+      <Team/>
     </>
   );
 };

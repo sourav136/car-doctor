@@ -1,6 +1,7 @@
+import Link from "next/link";
 import React from "react";
 
-const AboutUs = () => {
+const AboutUs = ({ href, title }) => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-15 md:mt-25 lg:mt-32.5">
       <div className="flex flex-col justify-center">
@@ -30,14 +31,19 @@ const AboutUs = () => {
           humour, or randomised words which don't look even slightly
           believable.{" "}
         </p>
-        <p className="text-gray text-sm md:text-[16px] mt-5 mb-7.5">
+        <p className="text-gray text-sm md:text-[16px] mt-5">
           the majority have suffered alteration in some form, by injected
           humour, or randomised words which don't look even slightly
           believable.{" "}
         </p>
-        <button className=" cursor-pointer  bg-primary text-white text-[14px] sm:text-lg font-semibold px-5.5 py-5 rounded-sm">
-          Get More Info
-        </button>
+        <div className="mt-7.5">
+          <Link
+            href={href}
+            className=" cursor-pointer  bg-primary text-white text-[14px] sm:text-lg font-semibold px-5.5 py-5 rounded-sm"
+          >
+            {title}
+          </Link>
+        </div>
       </div>
     </section>
   );
