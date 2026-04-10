@@ -37,7 +37,7 @@ export default async function ServiceDetails({params}) {
                     <h2 className='text-main-dark font-bold text-4xl mt-12.5 mb-7.5'>{serviceDetails.title}</h2>
                     <p className='text-gray '>{serviceDetails.description}</p>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mt-7.5'>
-                        {serviceDetails.facility.map((facility, index) =>(
+                        {serviceDetails?.facility?.map((facility, index) =>(
                             <div 
                             key={index}
                             className='p-10 rounded-lg border-t-2 border-primary bg-bg hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.3)] transition duration-300'>
