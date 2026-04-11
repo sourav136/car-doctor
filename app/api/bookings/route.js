@@ -1,30 +1,55 @@
-let bookings = [];
+import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
-export async function POST(req){
-    const data = await req.json();
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    const client = await clientPromise;
+    const db = client.db("carDoctor");
 
-    const newBooking = {
-        id: Date.now().toString(),
-        ...data,
-        status: "Pending"
+    const order = {
+      service: {
+        id: new ObjectId(body.serviceId),
+        name: body.serviceName,
+        image: body.image,
+        price: body.price,
+      },
+      customer: {
+        firstName: body.firstName,
+        lastName: body.lastName,
+        phone: body.phone,
+        email: body.email,
+        message: body.message,
+      },
+      status: "Pending", 
+      created_at: new Date(), 
+      updated_at: new Date()
     };
 
-    bookings.push(newBooking);
-    return Response.json({success: true});
+    const result = await db.collection("bookings").insertOne(order);
+    return Response.json(result,  {status: 201});
+  } catch (error) {
+    return Response.json({error: error.message},  {status:500});
+  }
 }
 
-export async function GET(){
-    return Response.json(bookings);
-}
+export async function GET() {
+  try {
+    const client = await clientPromise;
+    const db = client.db("carDoctor");
 
-export async function DELETE(req){
-    const body = await req.json().catch(() => null);
-    if (!body || !body.id){
-        bookings = [];
-        return Response.json({success: true});
-    }
-    const {id} = await body;
-
-    bookings= bookings.filter(b => b.id !== id);
-    return Response.json({success: true});
+    const bookings = await db.collection("bookings").find().toArray();
+    console.log("BOOKINGS:", bookings); // check terminal
+    
+    return new Response(JSON.stringify(bookings), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  } catch (error) {
+    console.error("BOOKINGS GET ERROR:", error.message); // ← this will tell you the real problem
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
 }
