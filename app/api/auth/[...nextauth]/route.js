@@ -1,6 +1,7 @@
 import clientPromise from "@/lib/mongodb";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from 'bcryptjs';
 
 export const authOptions ={
     session:{
@@ -22,7 +23,8 @@ export const authOptions ={
                     email:credentials.email
                 });
                 if (!user) throw new Error("User not found");
-                if (user.password !== credentials.password) throw new Error("Invalid password");
+                const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+                if(!isPasswordValid) throw new Error("Invalid passowrd");
                 return {
                     id: user._id.toString(),
                     email: user.email, 
