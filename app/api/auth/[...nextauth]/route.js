@@ -1,6 +1,7 @@
 import clientPromise from "@/lib/mongodb";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from 'bcryptjs';
 
 export const authOptions ={
@@ -32,11 +33,38 @@ export const authOptions ={
                     name: user.name
                 }
             }
+        }), 
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
         })
     ], 
     callbacks:{
+        async signIn({user, account}){
+            if(account.provider  === "google"){
+                const client = await clientPromise;
+                const db = client.db("carDoctor");
+
+                const existingUser = await db.collection("users").findOne({email: user.email});
+                if(!existingUser){
+                    await db.collection("users").insertOne({
+                        name: user.name, 
+                        email: user.email, 
+                        role: "user"
+                    })
+                }
+            }
+            return true;
+        },
         async jwt({token, user}){
-            if(user) token.role = user.role;
+            if(user){
+                const client = await clientPromise;
+                const db = client.db("carDoctor");
+                const dbUser= await db.collection("users").findOne({
+                    email: user.email
+                })
+                token.role = dbUser.role;
+            }
             return token;
         }, 
         async session({session, token}){

@@ -1,6 +1,7 @@
 import React from 'react';
 import RegisterForm from '../components/RegisterForm';
 import Link from 'next/link';
+import GoogleAuthButton from '../components/GoogleAuthButton';
 
 const register = () => {
     return (
@@ -11,6 +12,10 @@ const register = () => {
             <div className='flex flex-col gap-7 p-10 md:p-12 lg:p-19 rounded-lg border border-form order-1 md:order-2'>
                 <h1 className='font-semibold text-4xl text-light-dark text-center mb-5'>Sign Up</h1>
                 <RegisterForm/>
+                <p className='font-medium text-light-dark text-lg text-center'>Or Sign Up With</p>
+                <div className='flex justify-center w-full'>
+                    <GoogleAuthButton/>
+                </div>
                 <p className='text-lg text-form text-center'>Already have an account? <Link href="/login" className='text-primary font-semibold'>Sign In</Link></p>
             </div>
         </section>

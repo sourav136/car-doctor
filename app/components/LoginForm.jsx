@@ -3,10 +3,10 @@ import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 
 const LoginForm = () => {
-    const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -23,8 +23,7 @@ const LoginForm = () => {
     } else {
       alert("Login failed");
     }
-    setLoading(false)
-    
+    setLoading(false);
   };
   return (
     <form className="flex flex-col gap-7" onSubmit={handleSubmit}>
@@ -52,7 +51,11 @@ const LoginForm = () => {
         className="rounded-lg bg-primary py-4 text-white text-xl hover:border-2 hover:border-primary hover:bg-transparent hover:text-primary transition cursor-pointer"
         type="submit"
       >
-        {loading ? <span className="loading loading-dots loading-xl"></span>: "Sign In"}
+        {loading ? (
+          <span className="loading loading-dots loading-xl"></span>
+        ) : (
+          "Sign In"
+        )}
       </button>
     </form>
   );
