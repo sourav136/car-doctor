@@ -1,17 +1,23 @@
 import CheckoutForm from "@/app/components/CheckoutForm";
 import ServiceBanner from "@/app/components/ServiceBanner";
+import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
+import { notFound } from "next/navigation";
 import React from "react";
 
 async function getServiceDetails(id) {
-  const response = await fetch(`http://localhost:3000/api/services/${id}`, {
-    cache: "force-cache",
-  });
-  return response.json();
+  const client = clientPromise;
+  const db = client.db("carDoctor");
+  if (!ObjectId.isValid(id)) return null;
+  const service =  await db.collection("services").findOne({_id: new ObjectId(id)});
+  if (!service) return null;
+  return service;
 }
 
 const checkout = async ({ params }) => {
   const { id } = await params;
   const serviceDetails = await getServiceDetails(id);
+  if(!serviceDetails) return notFound();
   return (
     <section>
       <ServiceBanner title="Checkout" routeTitle="Home/Checkout" />

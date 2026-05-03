@@ -1,16 +1,21 @@
 import ServiceBanner from '@/app/components/ServiceBanner';
 import Steps from '@/app/components/Steps';
-import { SERVER_RUNTIME } from 'next/dist/lib/constants';
 import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 import Download from './../../components/Download';
+import { auth } from '@/auth';
+import clientPromise from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
+import { notFound } from 'next/navigation';
 
 async function getServiceDetails(id){
-    const response = await fetch(`http://localhost:3000/api/services/${id}`, {
-        cache: "force-cache",
-    })
-    return response.json();
+    const client = await clientPromise;
+    const db = client.db("carDoctor");
+    if(!ObjectId.isValid(id)) return null;
+    const service = await db.collection("services").findOne({_id: new ObjectId(id)});
+    if(!service) return null;
+    return service;
 }
 
 async function getServices(){
@@ -21,9 +26,10 @@ async function getServices(){
 }
 
 export default async function ServiceDetails({params}) {
-
+    const session = await auth();
     const {id} = await params;
     const serviceDetails = await getServiceDetails(id);
+    if(!serviceDetails) notFound();
     const services = await getServices();
     const otherServices = services.filter(services => services._id !== id);
 
@@ -64,7 +70,7 @@ export default async function ServiceDetails({params}) {
                     <img className='w-full  order-4 md:order-3' src="/assets/images/Ad.png" alt="Advertisement" />
                     <div className='flex flex-col gap-7.5  order-1 md:order-4'>
                         <h5 className='text-main-dark font-bold text-4xl'>Price: ${serviceDetails.price}</h5>
-                        <Link className='w-full py-4 text-center text-white bg-primary text-lg font-semibold' href={`/checkout/${serviceDetails._id}`}>Proceed Checkout</Link>
+                        <Link className='w-full py-4 text-center text-white bg-primary text-lg font-semibold' href={ session ?`/checkout/${serviceDetails._id}` : `/login?callbackUrl=/checkout/${id}`}>Proceed Checkout</Link>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,10 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -19,8 +21,8 @@ const RegisterForm = () => {
     })
 
     if (res.ok) {
-      alert("Registration successful");
       e.target.reset();
+      router.push("/login");
     } else {
       alert("Registration failed");
     }

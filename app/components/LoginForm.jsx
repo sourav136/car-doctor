@@ -1,9 +1,12 @@
 "use client";
 import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -14,11 +17,11 @@ const LoginForm = () => {
     const res = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl,
     });
 
     if (res.ok) {
-      alert("Login successful");
       e.target.reset();
     } else {
       alert("Login failed");
