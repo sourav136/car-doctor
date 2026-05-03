@@ -1,18 +1,21 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const AboutUs = ({ href, title }) => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-15 md:mt-25 lg:mt-32.5">
-      <div className="flex flex-col justify-center">
-        <div className="relative w-9/10">
-          <img
+      <div className="flex flex-col justify-center h-100 order-2 lg:order-1">
+        <div className="relative w-9/10 h-8/10">
+          <Image
+          fill
             className="w-full object-cover object-center rounded-md"
             src="/assets/images/about_us/person.jpg"
             alt="about us"
           />
-          <div className="border-10 border-white w-6/10 rounded-sm absolute -bottom-1/10 -right-1/10">
-            <img
+          <div className="border-10 border-white w-6/10 h-45 md:h-60 rounded-sm absolute -bottom-1/10 -right-1/10">
+            <Image
+            fill
               className="object-center"
               src="/assets/images/about_us/parts.jpg"
               alt="abot us"
@@ -20,7 +23,7 @@ const AboutUs = ({ href, title }) => {
           </div>
         </div>
       </div>
-      <div className="mt-10 lg:mt-0">
+      <div className="mt-10 lg:mt-0 order-1 lg:order-2">
         <h2 className="font-bold text-primary sm:text-xl text-lg">About Us</h2>
         <h3 className="font-bold text-main-dark text-4xl lg:text-[44px] mt-5 mb-7.5 max-w-94">
           We are qualified & of experience in this field

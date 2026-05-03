@@ -1,17 +1,19 @@
+import Image from "next/image";
 import React from "react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
-
 
 const HeroCarousel = () => {
   return (
     <section className="carousel w-full rounded-lg">
-      <div id="slide1" className="carousel-item relative w-full">
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent"></div>
-        <img
+      <div id="slide1" className="carousel-item relative w-full h-150">
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent z-100"></div>
+        <Image
+          alt="Banner image"
+          fill
           src="/assets/images/banner/5.jpg"
-          className="w-full min-h-[480px] max-h-[600px] object-cover rounded-lg"
+          className="min-h-[480px] max-h-[600px] object-cover rounded-lg"
         />
-        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25">
+        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25 z-200 flex flex-col justify-center">
           <h1 className="text-white max-w-[463px] font-bold text-5xl sm:text-6xl">
             Affordable Price For Car Servicing
           </h1>
@@ -43,13 +45,15 @@ const HeroCarousel = () => {
           </div>
         </div>
       </div>
-      <div id="slide2" className="carousel-item relative w-full">
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent"></div>
-        <img
+      <div id="slide2" className="carousel-item relative w-full h-150 ">
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent z-100"></div>
+        <Image
+          alt="Banner image"
+          fill
           src="/assets/images/banner/1.jpg"
-          className="w-full min-h-[480px] max-h-[600px] object-cover rounded-lg"
+          className="min-h-[480px] max-h-[600px] object-cover rounded-lg"
         />
-        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25">
+        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25 z-200 flex flex-col justify-center">
           <h1 className="text-white max-w-[463px] font-bold text-5xl sm:text-6xl">
             Affordable Price For Car Servicing
           </h1>
@@ -81,13 +85,15 @@ const HeroCarousel = () => {
           </div>
         </div>
       </div>
-      <div id="slide3" className="carousel-item relative w-full">
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent"></div>
-        <img
+      <div id="slide3" className="carousel-item relative w-full h-150 ">
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent z-100"></div>
+        <Image
+          alt="Banner image"
+          fill
           src="/assets/images/banner/2.jpg"
-          className="w-full min-h-[480px] max-h-[600px] object-cover rounded-lg"
+          className="min-h-[480px] max-h-[600px] object-cover rounded-lg"
         />
-        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25">
+        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25 z-200 flex flex-col justify-center">
           <h1 className="text-white max-w-[463px] font-bold text-5xl sm:text-6xl">
             Affordable Price For Car Servicing
           </h1>
@@ -119,13 +125,15 @@ const HeroCarousel = () => {
           </div>
         </div>
       </div>
-      <div id="slide4" className="carousel-item relative w-full">
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent"></div>
-        <img
+      <div id="slide4" className="carousel-item relative w-full h-150 ">
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent z-100"></div>
+        <Image
+          alt="Banner image"
+          fill
           src="/assets/images/banner/3.jpg"
-          className="w-full min-h-[480px] max-h-[600px] object-cover rounded-lg"
+          className="min-h-[480px] max-h-[600px] object-cover rounded-lg"
         />
-        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25">
+        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25 z-200 flex flex-col justify-center">
           <h1 className="text-white max-w-[463px] font-bold text-5xl sm:text-6xl">
             Affordable Price For Car Servicing
           </h1>
@@ -157,13 +165,15 @@ const HeroCarousel = () => {
           </div>
         </div>
       </div>
-      <div id="slide5" className="carousel-item relative w-full">
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent"></div>
-        <img
+      <div id="slide5" className="carousel-item relative w-full h-150 ">
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent z-100"></div>
+        <Image
+          alt="Banner image"
+          fill
           src="/assets/images/banner/4.jpg"
-          className="w-full min-h-[480px] max-h-[600px] object-cover rounded-lg"
+          className="min-h-[480px] max-h-[600px] object-cover rounded-lg"
         />
-        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25">
+        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25 z-200 flex flex-col justify-center">
           <h1 className="text-white max-w-[463px] font-bold text-5xl sm:text-6xl">
             Affordable Price For Car Servicing
           </h1>
@@ -195,13 +205,15 @@ const HeroCarousel = () => {
           </div>
         </div>
       </div>
-      <div id="slide6" className="carousel-item relative w-full">
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent"></div>
-        <img
+      <div id="slide6" className="carousel-item relative w-full h-150 ">
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 to-transparent z-100"></div>
+        <Image
+          alt="Banner image"
+          fill
           src="/assets/images/banner/6.jpg"
-          className="w-full min-h-[480px] max-h-[600px] object-cover rounded-lg"
+          className="min-h-[480px] max-h-[600px] object-cover rounded-lg"
         />
-        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25">
+        <div className="absolute inset-8 sm:inset-12 md:inset-15 lg:inset-25 z-200 flex flex-col justify-center">
           <h1 className="text-white max-w-[463px] font-bold text-5xl sm:text-6xl">
             Affordable Price For Car Servicing
           </h1>

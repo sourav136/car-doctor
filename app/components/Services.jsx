@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from "react-icons/fa";
@@ -23,7 +24,7 @@ const Services = async () => {
                         <div
                         className='p-6 rounded-md border border-border'
                         key={service._id}>
-                            <img className='w-full max-w-78.5 h-52 rounded-md object-cover' src={service.img} alt={service.title} />
+                            <Image height={208} width={314} className='rounded-md h-52' src={service.img} alt={service.title} />
                             <h4 className='font-bold text-light-dark my-5 text-xl md:text-2xl'>{service.title}</h4>
                             <div className='flex items-center justify-between'>
                                 <p className='text-primary font-semibold md:text-xl'>Price: ${service.price}</p>
