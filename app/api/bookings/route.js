@@ -5,6 +5,10 @@ import { ObjectId } from "mongodb";
 
 export async function POST(req) {
   try {
+    const session = await auth();
+    if (!session || !session.user) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const body = await req.json();
     const client = await clientPromise;
     const db = client.db("carDoctor");
@@ -20,7 +24,7 @@ export async function POST(req) {
         firstName: body.firstName,
         lastName: body.lastName,
         phone: body.phone,
-        email: body.email,
+        email: session.user.email,
         message: body.message,
       },
       status: "Pending",

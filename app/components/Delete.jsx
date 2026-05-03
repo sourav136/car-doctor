@@ -1,26 +1,19 @@
 "use client"
+import { useRouter } from "next/navigation";
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
 
-const getCartList = async () => {
-  const response = await fetch("http://localhost:3000/api/bookings", {
-    cache: "no-store",
-  });
-  return response.json();
-};
-
 const Delete = ({id}) => {
-
+    const router = useRouter();
     const handleDelete = async() => {
-        await fetch("/api/bookings", {
+        await fetch(`/api/bookings/${id}`, {
         method: "DELETE", 
         headers:{
             "Content-Type": "application/json"
         },
         body:JSON.stringify({id})
     })
-    const bookings = await getCartList();
-    console.log(bookings)
+    router.refresh();
     }
 
   return (
