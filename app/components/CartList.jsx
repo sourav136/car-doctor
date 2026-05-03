@@ -1,21 +1,23 @@
 import React from "react";
 import Delete from "./Delete";
-
-const getCartList = async () => {
-  const response = await fetch("http://localhost:3000/api/bookings", {
-    cache: "no-store",
-  });
-  console.log("STATUS:", response.status); 
-  return response.json();
-};
+import { auth } from "@/auth";
+import Link from "next/link";
+import { getBookingsByEmail } from "@/lib/booking";
 
 const CartList = async () => {
-  const cartList = await getCartList();
-  console.log(cartList)
+  const session = await auth();
+  if (!session || !session.user) {
+    return <p className="text-gray text-center">Please log in to view your cart.<Link className="text-primary font-medium" href="/login">Login Here</Link></p>;
+  }
+  const data = await getBookingsByEmail(session.user.email);
+  const cartList = data.map((item) => ({
+    ...item,
+    _id: item._id.toString(), 
+  })); 
   return (
     <section className="mt-15 md:mt-25 lg:mt-32.5">
       <ul>
-        {cartList ? (
+        {cartList.length> 0 ? (
           cartList.map((item) => (
             <li key={item._id} className="flex mb-7">
               <div className="flex items-center">
@@ -34,7 +36,7 @@ const CartList = async () => {
                     {item.service.name}
                   </h2>
                   <p className="text-gray text-[10px] md:text-base">
-                    {item.created_at}
+                    {new Date(item.created_at).toLocaleDateString()}
                   </p>
                 </div>
                 <h3 className="text-light-dark font-semibold text-sm md:text-xl">

@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+import { getBookingsByEmail } from "@/lib/booking";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
@@ -21,35 +23,38 @@ export async function POST(req) {
         email: body.email,
         message: body.message,
       },
-      status: "Pending", 
-      created_at: new Date(), 
-      updated_at: new Date()
+      status: "Pending",
+      created_at: new Date(),
+      updated_at: new Date(),
     };
 
     const result = await db.collection("bookings").insertOne(order);
-    return Response.json(result,  {status: 201});
+    return Response.json(result, { status: 201 });
   } catch (error) {
-    return Response.json({error: error.message},  {status:500});
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
 
 export async function GET() {
   try {
+    const session = await auth();
+    console.log("SESSION:", session);
+    if (!session || !session.user) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const client = await clientPromise;
     const db = client.db("carDoctor");
+    let bookings;
 
-    const bookings = await db.collection("bookings").find().toArray();
-    console.log("BOOKINGS:", bookings); // check terminal
-    
-    return new Response(JSON.stringify(bookings), {
-      status: 200,
-      headers: { "Content-Type": "application/json" }
-    });
+    if (session.user.role === "admin") {
+      bookings = await db.collection("bookings").find().toArray();
+    } else {
+      bookings = await getBookingsByEmail(session.user.email);
+    }
+
+    return Response.json(bookings, { status: 200 });
   } catch (error) {
     console.error("BOOKINGS GET ERROR:", error.message); // ← this will tell you the real problem
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return Response.json({ error: "Failed to fetch bookings" }, { status: 500 });
   }
 }
