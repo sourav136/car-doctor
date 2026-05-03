@@ -23,9 +23,9 @@ export const authOptions ={
                 const user = await db.collection("users").findOne({
                     email:credentials.email
                 });
-                if (!user) throw new Error("User not found");
+                if (!user) return Response.json({error: "User not found"}, {status: 404});
                 const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
-                if(!isPasswordValid) throw new Error("Invalid passowrd");
+                if(!isPasswordValid) return Response.json({error: "Invalid Password"}, {status: 401});
                 return {
                     id: user._id.toString(),
                     email: user.email, 

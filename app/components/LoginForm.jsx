@@ -5,6 +5,7 @@ import React, { useState } from "react";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
   const handleSubmit = async (e) => {
@@ -17,14 +18,17 @@ const LoginForm = () => {
     const res = await signIn("credentials", {
       email,
       password,
-      redirect: true,
+      redirect: false,
       callbackUrl,
     });
+    if(res?.error) {
+      setError(res.error);
+      setLoading(false);
+      return;
+    }
 
     if (res.ok) {
       e.target.reset();
-    } else {
-      alert("Login failed");
     }
     setLoading(false);
   };
@@ -36,6 +40,7 @@ const LoginForm = () => {
       <input
         className="w-full rounded-lg px-6 py-4 text-form border border-form"
         type="email"
+        required
         name="email"
         id="email"
         placeholder="Your email"
@@ -46,10 +51,12 @@ const LoginForm = () => {
       <input
         className="w-full rounded-lg px-6 py-4 text-form border border-form"
         type="password"
+        required
         name="password"
         id="password"
         placeholder="Your Password"
       />
+      {error && <p className="text-red-500">{error}</p>}
       <button
         className="rounded-lg bg-primary py-4 text-white text-xl hover:border-2 hover:border-primary hover:bg-transparent hover:text-primary transition cursor-pointer"
         type="submit"

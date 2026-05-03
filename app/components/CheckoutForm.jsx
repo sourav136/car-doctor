@@ -25,6 +25,9 @@ const CheckoutForm = ({ serviceDetails }) => {
     try {
       await fetch("/api/bookings", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
       setAlert({
