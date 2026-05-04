@@ -24,7 +24,7 @@ const UserStatus = () => {
               {session.user.name} <IoPersonSharp className="inline" />
             </label>
           </div>
-          <div className="drawer-side">
+          <div className="drawer-side z-10000">
             <label
               htmlFor="my-drawer-5"
               aria-label="close sidebar"

@@ -7,7 +7,7 @@ export async function POST(req) {
     const client = await clientPromise;
     const db = client.db("carDoctor");
 
-    const existingUser = await db.collection("users").find({
+    const existingUser = await db.collection("users").findOne({
       email: body.email,
     });
     if (existingUser) {
