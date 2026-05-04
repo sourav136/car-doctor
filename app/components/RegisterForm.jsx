@@ -71,7 +71,7 @@ const RegisterForm = () => {
       />
       {error && <p className="text-red-500">{error}</p>}
       <button
-        className="rounded-lg bg-primary py-4 text-white text-xl hover:border-2 hover:border-primary hover:bg-transparent hover:text-primary transition cursor-pointer"
+        className="rounded-lg bg-primary py-4 text-white text-xl hover:ring-2 hover:ring-primary hover:bg-transparent hover:text-primary transition cursor-pointer"
         type="submit"
       >
         {loading ? (

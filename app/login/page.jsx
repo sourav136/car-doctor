@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm';
 import GoogleAuthButton from '../components/GoogleAuthButton';
+import Link from 'next/link';
 
 const login = () => {
     return (
@@ -15,6 +16,7 @@ const login = () => {
                 <div className='flex justify-center w-full'>
                     <GoogleAuthButton/>
                 </div>
+                <p className='text-lg text-form text-center'>Don't have an account? <Link href="/register" className='text-primary font-semibold'>Sign Up</Link></p>
             </div>
         </section>
     );

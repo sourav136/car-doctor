@@ -1,16 +1,16 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { BsHandbag } from "react-icons/bs";
-import { CiSearch } from "react-icons/ci";
+import { auth } from "@/auth";
+import UserStatus from "./UserStatus";
 
-const NavBar = () => {
+const NavBar = async () => {
+  const session = await auth();
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
+    { name: "Cart", href: "/cart" },
   ];
   return (
     <div className="navbar bg-base-100 py-10 w-full">
@@ -67,13 +67,14 @@ const NavBar = () => {
           ))}
         </ul>
       </div>
-      <div className="navbar-end">
-        <BsHandbag className="h-6 w-6 text-gray-500" />
-        <CiSearch className="h-6 w-6 text-gray-500 ml-5" />
-
-        <a className="btn text-lg font-semibold text-primary-text ring-2 ring-primary bg-transparent hidden sm:inline-flex ml-7.5">
+      <div className="navbar-end ">
+        <UserStatus/>
+        <Link
+          href="/cart"
+          className="btn text-lg font-semibold text-primary-text ring-2 ring-primary bg-transparent hidden sm:inline-flex ml-7.5"
+        >
           Appointment
-        </a>
+        </Link>
       </div>
     </div>
   );

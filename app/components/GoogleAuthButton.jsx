@@ -7,7 +7,7 @@ const GoogleAuthButton = () => {
   return (
     <button
       className="text-lg p-4.5 bg-bg rounded-full cursor-pointer"
-      onClick={()=> signIn("google")}>
+      onClick={()=> signIn("google", { callbackUrl: "/" })}>
       <FcGoogle />
     </button>
   );
