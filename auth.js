@@ -63,11 +63,12 @@ export const authOptions ={
                 const dbUser= await db.collection("users").findOne({
                     email: user.email
                 })
-                token.role = dbUser.role;
+                token.role = dbUser?.role || "user";
             }
             return token;
         }, 
         async session({session, token}){
+            if(!token) return null;
             session.user.role= token.role;
             return session;
         }
