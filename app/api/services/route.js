@@ -46,7 +46,6 @@ export async function POST(req) {
       facility: defaultFacility,
     };
     const result = await db.collection("services").insertOne(newService);
-    console.log("Insert result:", result);
     revalidatePath("/services")
     return Response.json({ message: "Service added successfully" }, { status: 201 });
   } catch (error) {
