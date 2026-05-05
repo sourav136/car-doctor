@@ -2,16 +2,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from "react-icons/fa";
+import AddNewService from './AddNewService';
+import { auth } from '@/auth';
 
 async function getServices(){
     const response = await fetch("http://localhost:3000/api/services", {
-        cache:"force-cache",
+        cache:"no-store",
     })
     return response.json();
 }
 
 const Services = async () => {
-
+    const session = await auth();
     const services = await getServices();
     return (
         <section className='mt-15 md:mt-25 lg:mt-32.5 flex flex-col items-center'>
@@ -36,6 +38,11 @@ const Services = async () => {
                     ))
                 }
             </div>
+            {session?.user?.role === "admin" && (
+                <div className='mt-10'>
+                    <Link href="/admin/add_service" className='px-5 py-2.5 rounded-lg bg-primary text-white font-medium text-sm md:text-base'>Add New Service</Link>
+                </div>
+            )}
         </section>
     );
 };
