@@ -2,6 +2,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import { Inter } from "next/font/google";
 import Providers from "./providers";
+import Footer from "./components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,7 +33,11 @@ export default function RootLayout({ children }) {
               {children}
             </div>
           </main>
-          <footer></footer>
+          <footer className=" bg-main-dark mt-15 md:mt-25 lg:mt-32.5">
+            <div className="max-w-7xl mx-auto lg:px-8 md:px-4 px-2">
+              <Footer />
+            </div>
+          </footer>
         </Providers>
       </body>
     </html>
