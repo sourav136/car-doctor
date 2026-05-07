@@ -12,10 +12,10 @@ export async function DELETE(req, context) {
   const db = client.db("carDoctor");
 
   let query;
-  if (session.user.role === "admin") {
+  if (session?.user?.role === "admin") {
     query = { _id: new ObjectId(id) };
   } else {
-    query = { _id: new ObjectId(id), "customer.email": session.user.email };
+    query = { _id: new ObjectId(id), "customer.email": session?.user?.email };
   }
 
   const result = await db.collection("bookings").deleteOne(query);

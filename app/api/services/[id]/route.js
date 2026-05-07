@@ -28,7 +28,7 @@ export async function GET(req, context) {
 
 export async function DELETE(req, context) {
   const session = await auth();
-  if (!session || !session.user || session.user.role !== "admin")
+  if (!session || !session.user || session?.user?.role !== "admin")
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   const { id } = await context.params;
 

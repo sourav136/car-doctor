@@ -43,7 +43,7 @@ const Services = async () => {
               <p className="text-primary font-semibold md:text-xl">
                 Price: ${service.price}
               </p>
-              {session.user.role === "admin" ? (
+              {session?.user?.role === "admin" ? (
                 <div className="flex items-center gap-5">
                   <DeleteService id={service._id} />
                   <Link href={`/services/${service._id}`}>

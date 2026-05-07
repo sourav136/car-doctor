@@ -29,7 +29,7 @@ export async function GET() {
 export async function POST(req) {
   try {
     const session = await auth();
-    if (!session || !session.user || session.user.role !== "admin") {
+    if (!session || !session.user || session?.user?.role !== "admin") {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 

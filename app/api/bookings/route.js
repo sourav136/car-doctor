@@ -50,7 +50,7 @@ export async function GET() {
     const db = client.db("carDoctor");
     let bookings;
 
-    if (session.user.role === "admin") {
+    if (session?.user?.role === "admin") {
       bookings = await db.collection("bookings").find().toArray();
     } else {
       bookings = await getBookingsByEmail(session.user.email);
