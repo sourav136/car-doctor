@@ -9,6 +9,7 @@ import { auth } from '@/auth';
 import clientPromise from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 import { notFound } from 'next/navigation';
+import { getServices } from '@/lib/service';
 
 async function getServiceDetails(id){
     const client = await clientPromise;
@@ -19,20 +20,13 @@ async function getServiceDetails(id){
     return service;
 }
 
-async function getServices(){
-    const response = await fetch("http://localhost:3000/api/services", {
-        cache:"force-cache",
-    })
-    return response.json();
-}
-
 export default async function ServiceDetails({params}) {
     const session = await auth();
     const {id} = await params;
     const serviceDetails = await getServiceDetails(id);
     if(!serviceDetails) notFound();
     const services = await getServices();
-    const otherServices = services.filter(services => services._id !== id);
+    const otherServices = services.filter(service => service._id !== id);
 
 
     return (

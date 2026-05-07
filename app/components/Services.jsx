@@ -4,13 +4,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { auth } from "@/auth";
 import DeleteService from "./DeleteService";
-
-async function getServices() {
-  const response = await fetch("http://localhost:3000/api/services", {
-    cache: "no-store",
-  });
-  return response.json();
-}
+import { getServices } from "@/lib/service";
 
 const Services = async () => {
   const session = await auth();

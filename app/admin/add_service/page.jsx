@@ -1,13 +1,7 @@
 import AddServicesForm from '@/app/components/AddServicesForm';
 import Banner from '../../components/Banner';
 import React from 'react';
-
-async function getServices(){
-    const response = await fetch("http://localhost:3000/api/services", {
-        cache:"force-cache",
-    })
-    return response.json();
-}
+import { getServices } from '@/lib/service';
 
 const AddServicesPage = async () => {
     const services = await getServices();
